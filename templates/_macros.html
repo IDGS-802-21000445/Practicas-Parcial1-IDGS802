@@ -1,10 +1,89 @@
 {%macro datos(name,placeholder,type="text")%}
-    <p> <input name="{{name}}"  placeholder="{{placeholder}}" type="{{type}}">  </p>
+<p> <input name="{{name}}" placeholder="{{placeholder}}" type="{{type}}"> </p>
 {%endmacro%}
 
 {%macro input_Form(field)%}
-    <td>
-        {{field.label}}
-    </td>
-    <dd>{{field(**kwargs)|safe}}</dd>
+<td>
+    {{field.label}}
+</td>
+<dd>{{field(**kwargs)|safe}}</dd>
 {%endmacro%}
+
+{% macro lista_colores(field) %}
+<div>
+    <div>
+        <label>{{ field.label }}</label>
+    </div>
+    <div>
+        {{ field(class="form-control")|safe }}
+    </div>
+</div>
+{% endmacro %}
+
+
+{% macro radioB_Color(field) %}
+<label>
+    {{ field.label }}
+</label>
+{% for choice, label in field.choices %}
+<label>
+    <input type="radio" name="{{ field.name }}" value="{{ choice }}" {% if field.data == choice %}checked{% endif %}>
+    {{ label }}
+</label>
+{% endfor %}
+{% endmacro %}
+
+{% macro tabla_registro(registros) %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        color: black;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
+
+<table>
+    <tr>
+        <th>Banda 1</th>
+        <th>Banda 2</th>
+        <th>Banda 3</th>
+        <th>Tolerancia</th>
+        <th>Valor</th>
+        <th>Valor Maximo</th>
+        <th>Valor Minimo</th>
+    </tr>
+
+    {% for registro in registros %}
+    <tr>
+        <td style="background-color: {{ registro.colorHex_1|default('#ffffff') }};">{{ registro.color1 }}</td>
+        <td style="background-color: {{ registro.colorHex_2|default('#ffffff') }};">{{ registro.color2 }}</td>
+        <td style="background-color: {{ registro.colorHex_3|default('#ffffff') }};">{{ registro.color3 }}</td>
+        <td style="background-color: {{ registro.colorHex_4|default('#ffffff') }};">{{ registro.color4 }}</td>
+        <td>{{ registro.valor_resistencia1 }}</td>
+        <td>{{ registro.valor_resistencia2 }}</td>
+        <td>{{ registro.valor_resistencia3 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endmacro %}
+
+{% macro button_Sucess(nombre, estilo="primary") %}
+<button type="submit" class="btn btn-{{ estilo }}" name="{{ nombre }}">
+    {{ nombre }}
+</button>
+{% endmacro %}

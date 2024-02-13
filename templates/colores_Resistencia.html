@@ -1,0 +1,31 @@
+
+{% extends "layout2.html" %}
+
+{% block content %}
+{%import "_macros.html" as macro%}
+    <p>Selecciona los colores de las bandas de la resistencia</p>
+<form action="" method="post">
+
+    {{ macro.lista_colores(form.color1) }}
+    {{ macro.lista_colores(form.color2) }}
+    {{ macro.lista_colores(form.color3) }}
+    {{ macro.radioB_Color(form.color4) }}
+    {{ macro.button_Sucess("Registrar", "success") }}
+</form>
+
+{{ macro.tabla_registro([{
+    'colorHex_1': colorHex_1,
+    'colorHex_2': colorHex_2,
+    'colorHex_3': colorHex_3,
+    'colorHex_4': colorHex_4,
+    'color1': form.color1.data,
+    'color2': form.color2.data,
+    'color3': form.color3.data,
+    'color4': form.color4.data,
+    'valor_resistencia1': valor,
+    'valor_resistencia2': valor_positivo,
+    'valor_resistencia3': valor_negativo
+    
+}]) }}
+
+{% endblock %}
